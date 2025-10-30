@@ -1,9 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TaskRow } from "@/components/ui/task-row";
+import { KpiCard } from "@/components/ui/kpi-card";
+
+import { Task } from "@/lib/types/types";
 
 // (в реале дергаем из БД через server actions/ORM)
-const mock = {
+const mock: { overdue: Task[]; today: Task[] } = {
     overdue: [
         { id: "t1", plantName: "Monstera", type: "WATER", dueAt: "2025-10-27" },
     ],
@@ -21,9 +24,9 @@ export default async function DashboardPage() {
         <div className="grid gap-4">
             {/* KPI */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <Card><CardHeader><CardTitle>Overdue</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{overdue.length}</p></CardContent></Card>
-                <Card><CardHeader><CardTitle>Today</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">{today.length}</p></CardContent></Card>
-                <Card><CardHeader><CardTitle>Done this week</CardTitle></CardHeader><CardContent><p className="text-2xl font-semibold">0</p></CardContent></Card>
+                <KpiCard title={"Overdue"} value={overdue.length} />
+                <KpiCard title={"Today"} value={today.length} />
+                <KpiCard title={"Done this week"} value={0} />
             </div>
 
             {/* Overdue */}
